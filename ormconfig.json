@@ -1,0 +1,8 @@
+{
+    "type": "sqlite",
+    "database": "./data/pipermail-bot.sqlite",
+    "models": [
+        "dist/entity/**.js"
+    ],
+    "logging": true
+}
