@@ -7,11 +7,13 @@ import log from "../../helpers/log";
 const telegramBot = new Telegraf(config.token);
 
 function initTelegramBot() {
-    telegramBot.launch()
-      
-    log("The bot is initialized succesfuly \n");
+    log("Connecting bot to Telegram");
 
-    telegramBot.telegram.sendMessage(config.chatId, "Bot iniciado")
+    telegramBot.launch()
+    telegramBot.telegram.sendMessage(config.chatId, "Pipermail-Telegram Bot iniciado")
+
+    log("Bot connected to Telegram");
+
 }
 
 export {telegramBot, initTelegramBot}

@@ -1,41 +1,40 @@
-import getMailsFromFile from "./mails/getMailsFromFile";
+import "reflect-metadata";
 
-import getMailsFromWeb from "./mails/getMailsFromWeb";
+import { Connection, createConnection } from "typeorm";
+import { initTelegramBot } from "./bot/telegram";
 
 import config from "./config";
-
-import { Connection } from "typeorm";
-
-import "reflect-metadata"
-
 import log from "./helpers/log";
+import getMailsFromFile from "./mails/getMailsFromFile";
+import getMailsFromWeb from "./mails/getMailsFromWeb";
 
-import {createConnection} from "typeorm";
-import { Mail } from "./models/Mail";
-import { initTelegramBot } from "./bot/telegram";
+async function updateFromMailingList(): Promise<void> {
+    // Get mails from web and add to database all
+    log("Updating from mailing list.")
+    const files = await getMailsFromWeb()
+    getMailsFromFile(files)
+    log("Finished update from mailing list.")
+}
 
 async function main() : Promise<void> {
 
-
-    log("Initialize app");
-    // Conecction to database
+    log("Initializing Pipermail to Telegram bot.")
+    // Conection to database
     try {
         const connection : Connection = await createConnection()
-
-        log("Connected to database \n");
+        log("Connected to database.")
     } catch (error) {
         throw error
     }
 
-    initTelegramBot();
+    initTelegramBot()
 
-    // Get Mails to web and add to database all
-    const files = await getMailsFromWeb()
-    getMailsFromFile(files)
+    await updateFromMailingList()
 
+    // Schedule periodic updates
+    // FIXME: this should not use setInterval, but reschedule itself (end to start) and handle errors
     setInterval(async () => {
-        const files = await getMailsFromWeb()
-        getMailsFromFile(files)
+        await updateFromMailingList()
     }, config.timeToRefresh)
 }
 
