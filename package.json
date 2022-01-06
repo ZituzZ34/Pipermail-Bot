@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc -w",
-    "dev": "nodemon build/index.js --exec babel-node build/index.js",
-    "start": "babel-node dist/main.js",
-    "build": "babel src --out-dir dist"
+    "compile": "tsc",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
