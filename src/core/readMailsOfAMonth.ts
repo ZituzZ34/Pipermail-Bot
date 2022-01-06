@@ -6,8 +6,8 @@ import readMail from "./modules/readMail"
 async function readMailsOfAMonth(mailsMonth : string, notify : boolean) {
     const monthMailsParsed = await formatMonthMails(mailsMonth)
 
+    log(`Reading Mails of a month`)
     for (let mail = 0; mail < monthMailsParsed.length; mail++) {
-        log(`Reading Mails of a month`)
         readMail(monthMailsParsed, mail, notify)
     }
 }
