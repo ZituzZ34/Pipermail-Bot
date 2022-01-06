@@ -1,8 +1,17 @@
 {
     "type": "sqlite",
-    "database": "./data/pipermail-bot.sqlite",
-    "models": [
-        "dist/entity/**.js"
+    "database": "./data/database/pipermail-bot.sqlite",
+    "entities": [
+        "dist/models/Mail.js"
     ],
-    "logging": true
+    "migrations": [
+        "dist/migration/**/*.js"
+    ],
+    "logging": true,
+    "synchronize": true,
+    "cli": {
+        "entitiesDir": "src/models",
+        "migrationsDir": "src/migration",
+        "subscribersDir": "src/subscriber"
+    }
 }
