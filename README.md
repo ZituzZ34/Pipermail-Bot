@@ -13,9 +13,12 @@ Install Dependecies:
 
     npm install
 
+Node version:
+
+Requires node v16 or higher.
 
 Set config
-   
+
     cd src/config
     touch index.ts
 
@@ -33,4 +36,22 @@ Run project
     npm run compile
     npm run start
 
+
+## Docker
+
+Building the docker image:
+
+1) Ensure the project has been compiled (see above)
+
+2) Build:
+
+    docker build -t pipermail-bot:latest -f docker/Dockerfile.pipermail-bot .
+
+3) Run:
+
+    docker run -it \
+        -v $( pwd )/data/database:/root/pipermail-bot/data/database \
+	    -v $( pwd )/data/mails:/root/pipermail-bot/data/mails \
+        -v $( pwd )/data/config/config.json:/root/pipermail-bot/config.json \
+        pipermail-bot:latest
 

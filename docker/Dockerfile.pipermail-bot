@@ -1,0 +1,63 @@
+# Pipermail Telegram Bot
+
+FROM ubuntu:20.04
+
+# Update apt-get and install common packages
+RUN apt-get -y update --fix-missing
+
+# Packages
+#RUN DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+
+# This adds support for locales and avoid Python3 using POSIX with no UTF8 support as default, which causes issues with some UTF-8 JSON encoded files
+RUN apt-get install -y language-pack-en
+#RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        git cmake build-essential python3-dev curl
+
+# Install npm
+WORKDIR /tmp
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+#RUN npm cache clean -f
+#RUN npm install -g n
+#RUN n stable
+
+# Copy and package
+RUN mkdir /root/pipermail-bot
+WORKDIR /root/pipermail-bot
+
+COPY package.json /root/pipermail-bot/
+COPY README.md /root/pipermail-bot/
+COPY ormconfig.json /root/pipermail-bot/
+COPY tsconfig.json /root/pipermail-bot/
+COPY src /root/pipermail-bot/src
+
+# Init dirs
+RUN mkdir -p /root/pipermail-bot/data/database
+RUN mkdir -p /root/pipermail-bot/data/mails
+#RUN mkdir -p /root/pipermail-bot/data/conf
+
+# Install
+RUN npm i  # --only=prod
+RUN npm run compile
+
+# Copy configuration (this can be mapped when running)
+#COPY docker/config.js /root/pipermail-telegrm-bot/src/config.js
+#RUN mkdir /root/pipermail-telegrm-bot/src/priv
+
+# Workdir
+WORKDIR /root/pipermail-bot
+
+# Cleanup
+
+# Default docker command
+#CMD /bin/bash
+#ENTRYPOINT ["/root/ddd/env/bin/ddd"]
+CMD ["npm", "run", "start"]
+
