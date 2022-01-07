@@ -1,0 +1,22 @@
+{
+    "year": 2021,
+    "month": 1,
+    
+    "chatId": 0,
+
+    "timeToRefresh": 86400000,
+
+    "ageMail": 24,
+
+    "urlBase": "https://lists.openstreetmap.org/pipermail/talk-es/",
+
+    "sufixUrlBase": "thread.html",
+
+    "dataRoute": "./data/mails/",
+
+    "messageText": "Nuevo mensaje recibido en la lista: {FROM} - <a href=\"{LINK}\">{DATE}</a> - {SUBJECT}",
+
+    "bdPath": "./data/database/pipermail-bot.sqlite",
+
+    "token": "Your token here"
+}

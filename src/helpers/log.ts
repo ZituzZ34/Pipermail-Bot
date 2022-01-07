@@ -1,4 +1,4 @@
-const log = (text : string) => {
+const log = (text : any) => {
     console.log(text)
 }
 

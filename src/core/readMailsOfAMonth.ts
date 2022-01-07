@@ -3,6 +3,7 @@ import formatMonthMails from "../utils/format/formatMonthMails"
 import readMail from "./modules/readMail"
 
 
+
 /**
  * Processes a whole month mails data in mbox format
  * @param mailsMonth a string that contains the full month mails in mbox format

@@ -4,9 +4,11 @@ import { Connection, createConnection } from "typeorm";
 import { initTelegramBot } from "./bot/telegram";
 
 import config from "./config";
+
 import log from "./helpers/log";
 import getMailsFromFile from "./mails/getMailsFromFile";
 import getMailsFromWeb from "./mails/getMailsFromWeb";
+
 
 async function updateFromMailingList(): Promise<void> {
     // Get mails from web and add to database all
