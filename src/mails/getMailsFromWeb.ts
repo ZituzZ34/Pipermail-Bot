@@ -16,7 +16,7 @@ async function getMailsFromWeb() : Promise<string[]> {
     let month = config.month - 1
     let year = config.year
 
-    log(`Getting monthly mail files from: ${config.urlBase} (starting from: ${year}-${month})`);
+    log(`Getting monthly mail files from: ${config.urlBase} (starting from: ${year}-${month + 1})`);
 
     // const logicPassMonths : boolean = logicPassMonthsAndYears(month, monthNow, year, yearNow)
 
@@ -30,7 +30,11 @@ async function getMailsFromWeb() : Promise<string[]> {
 
         if (fs.existsSync(filePath)) {
             log(`File ${filePath} already exists.`);
-            filesNameShort.push(fileName)
+            if (month == monthNow && year == yearNow) {
+                filesNameShort.push(fileName)
+
+                break;
+            }
         } else {
             break;
         }
@@ -54,7 +58,9 @@ async function getMailsFromWeb() : Promise<string[]> {
 
         log(`Saving mails to: ${config.dataRoute}/${fileName}`)
 
-        filesNameShort.push(fileName)
+        if (!filesNameShort.includes(fileName)) {
+            filesNameShort.push(fileName)
+        }
 
         let failed = false
 

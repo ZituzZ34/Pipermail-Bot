@@ -14,8 +14,13 @@ async function updateFromMailingList(): Promise<void> {
     // Get mails from web and add to database all
     log("Updating from mailing list.")
     const files = await getMailsFromWeb()
-    getMailsFromFile(files)
+    await getMailsFromFile(files)
     log("Finished update from mailing list.")
+    
+    // Schedule periodic updates
+    setTimeout(async () => {
+        await updateFromMailingList()
+    }, config.timeToRefresh);
 }
 
 async function main() : Promise<void> {
@@ -33,11 +38,6 @@ async function main() : Promise<void> {
 
     await updateFromMailingList()
 
-    // Schedule periodic updates
-    // FIXME: this should not use setInterval, but reschedule itself (end to start) and handle errors
-    setInterval(async () => {
-        await updateFromMailingList()
-    }, config.timeToRefresh)
 }
 
 main()
