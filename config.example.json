@@ -6,6 +6,8 @@
 
     "timeToRefresh": 86400000,
 
+    "fromEmailReplace": " en ",
+
     "ageMail": 24,
 
     "urlBase": "https://lists.openstreetmap.org/pipermail/talk-es/",
