@@ -13,8 +13,6 @@ function initTelegramBot() {
     
     telegramBot.launch()
     
-    telegramBot.telegram.sendMessage(config.chatId, "Pipermail-Telegram Bot iniciado")
-    
     initHelpCommand(telegramBot);
 
     log("Bot connected to Telegram");

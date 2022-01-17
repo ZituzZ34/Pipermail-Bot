@@ -12,7 +12,7 @@ async function formatMonthMails(mails : string) : Promise<any> {
 
     const mailsFormat = await Promise.all(mailsFormatPromises)
 
-    console.log("mailsFormat", mailsFormat[0])
+    // console.log("mailsFormat", mailsFormat[0])
 
     return mailsFormat
 }
