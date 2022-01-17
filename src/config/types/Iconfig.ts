@@ -10,4 +10,5 @@ export default interface Iconfig {
     messageText: string;
     bdPath: string;
     token: string;
+    fromEmailReplace: string;
 }

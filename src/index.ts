@@ -12,10 +12,12 @@ import getMailsFromWeb from "./mails/getMailsFromWeb";
 
 async function updateFromMailingList(): Promise<void> {
     // Get mails from web and add to database all
-    log("Updating from mailing list.")
+
+
+    log(`Updating from mailing list ${new Date()}.`)
     const files = await getMailsFromWeb()
     await getMailsFromFile(files)
-    log("Finished update from mailing list.")
+    log(`Finished update from mailing list ${new Date()}.`)
     
     // Schedule periodic updates
     setTimeout(async () => {

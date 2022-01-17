@@ -37,10 +37,13 @@ async function readMail(monthMailsParsed : any, mail : any, notify : boolean) : 
 
         const link = getUrlList(date)
 
+        
+        const goodFrom : string = from.text.replace(config.fromEmailReplace, '@')
+
         // Prepare text to send
         const text : string = config.messageText
             .replace('{DATE}', formatDate(date))
-            .replace('{FROM}', from.text)
+            .replace('{FROM}', goodFrom)
             .replace('{SUBJECT}', subject.replaceAll('<','&lt;'))
             .replace('{LINK}', link)
 
